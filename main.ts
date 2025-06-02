@@ -9,6 +9,13 @@ let tsxSourceCode = fs.readFileSync(tsxFile, 'utf8');
 console.log("Source File Opened");
 //console.log(sourceCode);
 
+function FormatNode(statement: ts.Statement) {
+    console.log(ts.SyntaxKind[statement.kind]);
+    console.log(statement.getFullStart());
+    console.log(statement.getEnd());
+    console.log(statement.getText());
+}
+
 let jsSourceFile = ts.createSourceFile(
     soureFile,
     sourceCode,
@@ -25,41 +32,41 @@ console.log("AST created: ", ts.SyntaxKind[jsSourceFile.kind]);
 //Print(jsSourceFile);
 
 let declList: ts.LineAndCharacter[] = [];
-/*
 for (let statement of jsSourceFile.statements) {
 
     const current = statement
+    FormatNode(current);
+    /*
     if (ts.isVariableStatement(statement)) {
-        const declarationList = statement.declarationList;
-        if (declarationList) {
-
-            for (const decl of declarationList.declarations) {
-                const line = jsSourceFile.getLineAndCharacterOfPosition(decl.getEnd());
-                declList.push(line);
-                console.log(line);
-                console.log("Variable:", decl.name.getText());
-                console.log("Wdith", decl.getWidth());
-                console.log("Text: ", decl.getText());
-                console.log("Start: ", decl.getStart());
-                console.log("Full Start: ", decl.getFullStart());
-                console.log(decl.parent.getFullText());
-
-            }
-
-
-            for (let index = 0; index < declList.length; index++) {
-                for (let j = index + 1; j < declList.length; j++) {
-                    if (declList[index].line === declList[j].line) {
-                        console.log("Two Statements one line")
-                        declList = [];
-                        console.log(current.getFullText());
-                    }
-
+    const declarationList = statement.declarationList;
+    if (declarationList) {
+     
+        for (const decl of declarationList.declarations) {
+            declList.push(line);
+            console.log(line);
+            console.log("Variable:", decl.name.getText());
+            console.log("Wdith", decl.getWidth());
+            console.log("Text: ", decl.getText());
+            console.log("Start: ", decl.getStart());
+            console.log("Full Start: ", decl.getFullStart());
+            console.log(decl.parent.getFullText());
+     
+        }
+     
+     
+        for (let index = 0; index < declList.length; index++) {
+            for (let j = index + 1; j < declList.length; j++) {
+                if (declList[index].line === declList[j].line) {
+                    console.log("Two Statements one line")
+                    declList = [];
+                    console.log(current.getFullText());
                 }
+     
             }
         }
-
     }
+    
+    }*/
 
     // ✅ For-Of Loop
     if (ts.isForOfStatement(statement)) {
@@ -73,9 +80,9 @@ for (let statement of jsSourceFile.statements) {
     console.log("\n");
 }
 
-*/
-
-
+//console.log("Javascript File AST: ");
+//Print(jsSourceFile);
+console.log("\n")
 
 const sourceJsxFile = ts.createSourceFile(
     tsxFile,
@@ -86,4 +93,5 @@ const sourceJsxFile = ts.createSourceFile(
 
 );
 
-Print(sourceJsxFile);
+//console.log("TSX AST: ");
+//Print(sourceJsxFile);
